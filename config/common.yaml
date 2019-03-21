@@ -1,0 +1,9 @@
+config:
+subcomponents:
+  cloud-native:
+    subcomponents:
+      istio:
+        config:
+          global:
+            proxy:
+              includeIPRanges: "*"
