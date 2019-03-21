@@ -22,5 +22,5 @@ spec:
         - name: busybox
           image: busybox:latest
           imagePullPolicy: Always
-          command: ["/bin/bash", "-c", "--"]
+          command: ["sh", "-c", "--"]
           args: ["while true; do sleep 30; done;"]
