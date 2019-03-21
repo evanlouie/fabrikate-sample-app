@@ -1,3 +1,4 @@
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
@@ -11,3 +12,39 @@ spec:
       protocol: HTTP
   resolution: DNS
   location: MESH_EXTERNAL
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: google
+spec:
+  hosts:
+    - www.google.com
+    - www.bing.com
+  ports:
+    - number: 80
+      name: http
+      protocol: HTTP
+    - number: 443
+      name: https
+      protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: foobar-search
+spec:
+  hosts:
+    - search-foo.com
+  http:
+    - route:
+        - destination:
+            host: www.google.com
+        #   weight: 50
+        # - destination:
+        #     host: www.bing.com
+        #   weight: 50

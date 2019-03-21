@@ -1,26 +1,27 @@
+---
 # Single pod Ubuntu deployment that will not terminate
 # Annotated to allow full Egress traffic when in an Istio mesh
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: busybox-deployment
+  name: ubuntu-deployment
   labels:
-    app: busybox
+    app: ubuntu
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: busybox
+      app: ubuntu
   template:
     metadata:
       # annotations:
       #   traffic.sidecar.istio.io/excludeOutboundIPRanges: 0.0.0.0/0 # Allow all Egress traffic https://github.com/istio/istio/issues/9304
       labels:
-        app: busybox
+        app: ubuntu
     spec:
       containers:
-        - name: busybox
-          image: busybox:latest
+        - name: ubuntu
+          image: evanlouie/ubuntu-curl:latest
           imagePullPolicy: Always
-          command: ["sh", "-c", "--"]
+          command: ["bash", "-c", "--"]
           args: ["while true; do sleep 30; done;"]
